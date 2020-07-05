@@ -8,15 +8,91 @@
       name="description"
       content="Web site created using create-react-app"
     />
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/App.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
-    <script src="./components/chatClient.js"></script>
     <link rel="stylesheet" href="./css/App.css"></link>   
     <title>React App</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    
+
+    <header>
+      <nav class="nav-wrapper deep-purple darken-3">
+        <div class="container">
+          <a href="#" class="brand-logo">The ChatSpace</a>
+          <a href="" class="sidenav-trigger" data-target="mobile-menu"><i class="material-icons">menu</i></a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="/">Home</a></li>
+            <li><a href="/chat">Converse</a></li>
+          </ul>
+          <ul class="sidenav purple darken-4" id="mobile-menu">
+            <li><a href="/">Home</a></li>
+            <li><a href="/chat">Converse</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container section">
+      <h3>Feeling bored?</h2>
+      <p>Chat with your friends online! Make sure they are on this page.</p>
+    </div>
+
+
+    <div class="container section" style="padding-top:0px;">
+      <div id='output' class='section'></div>
+      <div id="feedback"></div>
+      <div class='input-field'>
+        <i class="material-icons prefix">chat</i>
+        <input type="text" id='message'/>
+        <label for="message">Message</label>
+      </div>
+      <div class="input-field center">
+        <button class='btn deep-purple darken-4' id="send">Send</button>
+      </div>
+    </div>
+
+    <footer class='page-footer deep-purple darken-4'>
+      <div class="container">
+        <div class="row">
+          <div class="col s12 l6">
+            <h5>Sonam Shenoy</h5>
+            <h6>About Me</h6>
+            <p>An enthusiastic web developer, painter and coder.
+          <!--</br>Studies in PES University, Bangalore. -->
+            </br>Developed this website just for fun!</p>
+          </div>
+
+          <div class="col s12 l6">
+            <h5>Connect</h5>
+            <ul>
+              <li><a href='https://github.com/sonamkshenoy' class='grey-text text-lighten-3'><i class="fa fa-github"></i>&nbsp;Github</a></li>
+              <li>Liked my paintings or the website? :P I would be extremely pleased to know!</li>
+              <!-- <li><a href='' class='grey-text text-lighten-3'>LinkedIn</a></li> -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
     <script src = "bundle.js"></script>
+    <script src="./components/chatClient.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('.sidenav').sidenav();
+        $('.parallax').parallax();
+        $('.materialboxed').materialbox();
+        $('.tabs').tabs();
+      })
+    </script>
   </body>
 </html>
