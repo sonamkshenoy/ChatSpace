@@ -1,21 +1,30 @@
-import React from 'react';
+import React, {Component} from 'react';
+import { Route, BrowserRouter } from 'react-router-dom';
 import '../css/App.css';
 
-function App() {
+import ChatComponent from './Chat';
+
+
+class App extends Component{
+  render(){
+    return(
+      <BrowserRouter>
+        <div className='App'>
+          <Route exact path='/' component={IndexComponent}></Route>
+          <Route path='/chat' component={ChatComponent}></Route>
+        </div>
+      </BrowserRouter>
+    );
+  }
+}
+
+var IndexComponent = function() {
   return (
-    <div className="App">
+    <div>
       <header className="App-header">
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
     </div>
   );
