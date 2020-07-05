@@ -3,6 +3,9 @@ var socket = require('socket.io');
 module.exports = function(app, server){
 
     app.get('/chat', function(req, res){
+        if(!sess.email){
+            return res.redirect('/');
+        }
         res.render('chatPage');
     });
 
