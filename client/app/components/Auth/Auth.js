@@ -14,6 +14,7 @@ class AuthComponent extends Component{
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSignupSubmit = this.handleSignupSubmit.bind(this);
+        this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
     }
     
     handleChange(e){
@@ -21,18 +22,18 @@ class AuthComponent extends Component{
         const field = target.name;
         const value = target.value;
         this.setState({
-            field: value
+            [field]: value
         });
     }
 
     handleSignupSubmit(e){
-        e.preventDefault();
+        // e.preventDefault();
         const user = {
             username : this.state.signupUsername,
-            email : this.state.email,
-            password : this.state.password
+            email : this.state.signupEmail,
+            password : this.state.signupPassword
         };
-        axios.post('/signup', {user})
+        axios.post('/signup', user)
         .then(res => {
             console.log(res);
             console.log(res.data);
@@ -41,6 +42,15 @@ class AuthComponent extends Component{
 
     handleLoginSubmit(e){
         e.preventDefault();
+        const user = {
+            email : this.state.loginEmail,
+            password : this.state.loginPassword
+        };
+        axios.post('/login', user)
+        .then(res => {
+            console.log(res);
+            console.log(res.data);
+        });
     }
 
     render(){
@@ -62,13 +72,13 @@ class AuthComponent extends Component{
                                     <div className='row'>
                                     <div className='input-field col s12'>
                                         <label htmlFor='email'>Enter your email</label>
-                                        <input className='validate' type='email' name='email' id='email' />
+                                        <input className='validate' type='email' name='loginEmail' onChange={this.handleChange} />
                                     </div>
                                     </div>
                                     <div className='row'>
                                     <div className='input-field col s12'>
                                         <label htmlFor='password'>Enter your password</label>
-                                        <input className='validate' type='password' name='password' id='password' />
+                                        <input className='validate' type='password' name='loginPassword' onChange={this.handleChange} />
                                     </div>
                                     </div>
                                     <br />
@@ -89,21 +99,21 @@ class AuthComponent extends Component{
                                 <form className="col s12" onSubmit={this.handleSignupSubmit}>
                                     <div className='row'>
                                     <div className='input-field col s12'>
-                                        <input className='validate' type='text' name='username' onChange={this.handleChange} />
+                                        <input className='validate' type='text' name='signupUsername' onChange={this.handleChange} />
                                         <label htmlFor='username'>What would you like to be called?</label>
                                     </div>
                                     </div>
                         
                                     <div className='row'>
                                     <div className='input-field col s12'>
-                                        <input className='validate' type='email' name='email' onChange={this.handleChange} />
+                                        <input className='validate' type='email' name='signupEmail' onChange={this.handleChange} />
                                         <label htmlFor='email'>Enter your email</label>
                                     </div>
                                     </div>
                         
                                     <div className='row'>
                                     <div className='input-field col s12'>
-                                        <input className='validate' type='password' name='password' onChange={this.handleChange} />
+                                        <input className='validate' type='password' name='signupPassword' onChange={this.handleChange} />
                                         <label htmlFor='password'>Enter your password</label>
                                     </div>
                                     </div>

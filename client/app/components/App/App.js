@@ -4,16 +4,7 @@ import '../css/App.css';
 
 import ChatComponent from '../Chat/Chat';
 import AuthComponent from '../Auth/Auth';
-
-// class AuthComponent extends Component{
-//   render(){
-//     return(
-//       <div>
-//         <h1>hello</h1>
-//         </div>
-//     );
-//   }
-// }
+import NotifyComponent from "../Auth/Notify";
 
 class App extends Component{
   render(){
@@ -22,6 +13,7 @@ class App extends Component{
           <Switch>
             <Route exact path='/' component={AuthComponent}></Route>
             <Route path='/chat' component={ChatComponent}></Route>
+            <Route path='/notify' component={NotifyComponent}></Route>
           </Switch>
         </div>    
     );
