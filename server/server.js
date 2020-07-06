@@ -12,9 +12,19 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../client'));
 app.use(express.static(path.join(__dirname, '../client')));
 
-var indexController = require('./routes/indexController.js');
-indexController(app);
+// var indexController = require('./routes/indexController.js');
+// indexController(app);
 var authController = require('./routes/authController.js');
 authController(app);
+
+// require('./routes')(app);
+
+app.get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname, '../client/index.html'), function(err) {
+        if (err){
+            res.status(500).send(err)
+        }
+    })
+})
 
 module.exports = app;

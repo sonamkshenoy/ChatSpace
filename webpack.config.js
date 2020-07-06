@@ -5,7 +5,8 @@ module.exports = {
     entry : './client/index.js',
     output : {
         path: path.join(__dirname, 'client'),
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        publicPath: '/'
     },
     module: {
         rules: [{
@@ -20,5 +21,8 @@ module.exports = {
             test: /\.css$/,
             loader: "style-loader!css-loader"
         }]
+    },
+    devServer: {
+        historyApiFallback: true,
     }
 }
