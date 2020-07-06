@@ -44,85 +44,82 @@ class AuthComponent extends Component{
     }
 
     render(){
-        <div className = "center">
-            <h5 className="indigo-text">Please, login into your account</h5>
-            <div className="col s12">
-            <ul className="tabs" id="tabs-swipe-demo">
-                <li className="tab col s3"><a className="indigo-text active" href="#test-swipe-2">Login</a></li>
-                <li className="tab col s3"><a className="indigo-text " href="#test-swipe-4">Signup</a></li>
-            </ul>
-            </div>
-            <div id="test-swipe-2" className="col s12">
-                <div className="container">
-                    <div className="z-depth-1 grey lighten-4 row" style="padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
-            
-                        <form className="col s12" onSubmit={this.handleLoginSubmit}>
-                
-                            <div className='row'>
-                            <div className='input-field col s12'>
-                                <input className='validate' type='email' name='email' id='email' />
-                                <label for='email'>Enter your email</label>
-                            </div>
-                            </div>
-                
-                            <div className='row'>
-                            <div className='input-field col s12'>
-                                <input className='validate' type='password' name='password' id='password' />
-                                <label for='password'>Enter your password</label>
-                            </div>
-                            <label style='float: right;'>
-                                {/* <a className='pink-text' href='#!'><b>Forgot Password?</b></a> */}
-                            </label>
-                            </div>
-                
-                            <br />
-                            <div className="center">
-                            <div className='row'>
-                                <button type='submit' name='btn_login' className='col s12 btn btn-large waves-effect indigo'>Login</button>
-                            </div>
-                            <a className='pink-text tab' href="" id='createAccount'>Create account</a>
-                            </div>
-                        </form>
+        return(
+            <div>
+                <div className = "center">
+                    <h5 className="indigo-text">Please, login into your account</h5>
+                    <div className="col s12">
+                        <ul className="tabs" id="tabs-swipe-demo">
+                            <li className="tab col s3"><a className="indigo-text active" href="#test-swipe-2">Login</a></li>
+                            <li className="tab col s3"><a className="indigo-text " href="#test-swipe-4">Signup</a></li>
+                        </ul>
                     </div>
-                </div>
-            </div>
-            <div id="test-swipe-4" className="col s12">
-                <div className="container">
-                    <div className="z-depth-1 grey lighten-4 row" style="padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
-            
-                        <form className="col s12" onSubmit={this.handleSignupSubmit}>
-                            <div className='row'>
-                            <div className='input-field col s12'>
-                                <input className='validate' type='text' name='username' onChange={this.handleChange} />
-                                <label for='username'>What would you like to be called?</label>
-                            </div>
-                            </div>
-                
-                            <div className='row'>
-                            <div className='input-field col s12'>
-                                <input className='validate' type='email' name='email' onChange={this.handleChange} />
-                                <label for='email'>Enter your email</label>
-                            </div>
-                            </div>
-                
-                            <div className='row'>
-                            <div className='input-field col s12'>
-                                <input className='validate' type='password' name='password' onChange={this.handleChange} />
-                                <label for='password'>Enter your password</label>
-                            </div>
-                            </div>
 
-                            <div className="center">
-                            <div className='row'>
-                                <button type='submit' name='btn_login' className='col s12 btn btn-large waves-effect indigo'>Sign up</button>
+                    <div id="test-swipe-2" className="col s12">
+                        <div className="container">
+                            <div className="z-depth-1 grey lighten-4 row" style={{padding: "32px 48px 0px 48px", border: "1px solid #EEE"}}>
+                                <form className="col s12" onSubmit={this.handleLoginSubmit}>
+                                    <div className='row'>
+                                    <div className='input-field col s12'>
+                                        <label htmlFor='email'>Enter your email</label>
+                                        <input className='validate' type='email' name='email' id='email' />
+                                    </div>
+                                    </div>
+                                    <div className='row'>
+                                    <div className='input-field col s12'>
+                                        <label htmlFor='password'>Enter your password</label>
+                                        <input className='validate' type='password' name='password' id='password' />
+                                    </div>
+                                    </div>
+                                    <br />
+                                    <div className="center">
+                                    <div className='row'>
+                                        <button type='submit' name='btn_login' className='col s12 btn btn-large waves-effect indigo'>Login</button>
+                                    </div>
+                                    <a className='pink-text tab' href="" id='createAccount'>Create account</a>
+                                    </div>
+                                </form>   
                             </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+                        </div>
+                    </div> 
+                    <div id="test-swipe-4" className="col s12">
+                        <div className="container">
+                            <div className="z-depth-1 grey lighten-4 row" style={{padding: "32px 48px 0px 48px", border: "1px solid #EEE"}}>
+                    
+                                <form className="col s12" onSubmit={this.handleSignupSubmit}>
+                                    <div className='row'>
+                                    <div className='input-field col s12'>
+                                        <input className='validate' type='text' name='username' onChange={this.handleChange} />
+                                        <label htmlFor='username'>What would you like to be called?</label>
+                                    </div>
+                                    </div>
+                        
+                                    <div className='row'>
+                                    <div className='input-field col s12'>
+                                        <input className='validate' type='email' name='email' onChange={this.handleChange} />
+                                        <label htmlFor='email'>Enter your email</label>
+                                    </div>
+                                    </div>
+                        
+                                    <div className='row'>
+                                    <div className='input-field col s12'>
+                                        <input className='validate' type='password' name='password' onChange={this.handleChange} />
+                                        <label htmlFor='password'>Enter your password</label>
+                                    </div>
+                                    </div>
 
+                                    <div className="center">
+                                    <div className='row'>
+                                        <button type='submit' name='btn_login' className='col s12 btn btn-large waves-effect indigo'>Sign up</button>
+                                    </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>  
+                </div>          
+            </div>            
+        )
     }
 }
 
