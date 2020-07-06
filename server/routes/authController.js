@@ -68,6 +68,14 @@ module.exports = function(app){
             var sess = req.session;
             sess.emailid = req.body.email;
             // return res.redirect('/chat');
+
+            var user = firebase.auth().currentUser;
+            if(user.emailVerified){
+                return res.status(200).send({"login":"successful"});
+            }
+            else{
+                console.log("Not verified");
+            }
         })
         .catch(function(error) {
             // Handle Errors here.

@@ -3,6 +3,7 @@ var socket = require('socket.io');
 module.exports = function(app, server){
 
     app.get('/chat', function(req, res){
+        var sess = req.session;
         if(!sess.email){
             return res.redirect('/');
         }

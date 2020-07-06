@@ -1,5 +1,7 @@
 var socket = io.connect('http://localhost:8000');
 
+console.log("Inside chatClient.js");
+
 var message = document.getElementById('message'),
     btn = document.getElementById('send'),
     output = document.getElementById('output'),

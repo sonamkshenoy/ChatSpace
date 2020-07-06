@@ -48,10 +48,15 @@ class AuthComponent extends Component{
             email : this.state.loginEmail,
             password : this.state.loginPassword
         };
+        console.log(this.props.cookies);
         axios.post('/login', user)
         .then(res => {
             console.log(res);
             console.log(res.data);
+            console.log(this.props.cookies);
+            cookies.set('name','Hoola',{path:'/'});
+            console.log(cookies.get('name'));
+            this.props.history.push('/chat');
         });
     }
 
