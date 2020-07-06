@@ -21,18 +21,44 @@ module.exports = function(app){
 
     app.post('/signup',function(req, res){
         console.log(req.body.username, req.body.email, req.body.password);
-        firebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.password)
-        .then(function(){
-            var sess = req.session;
-            sess.emailid = req.body.email;
-            return res.redirect('/notify');
-        }).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(errorMessage);
-            return res.redirect('/');
-        });
+
+        async function allAuthProcedure(){
+            // Create account
+            try{
+                await firebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.password);
+                var sess = req.session;
+                sess.emailid = req.body.email;
+            }
+            catch(error){
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log(errorMessage);
+                return res.redirect('/');
+            }
+
+            var user = firebase.auth().currentUser;
+
+            // Set display name
+            try{
+                await user.updateProfile({
+                    displayName: req.body.username
+                })
+            }
+            catch(e){
+                console.log(e);
+            }
+
+            // Send confirmation email
+            try{
+                await user.sendEmailVerification();
+            }
+            catch(e){
+                console.log(e);
+            }
+        }
+
+        allAuthProcedure();
+        return res.status(200).send({"signup":"successful"});
     });
 
     app.post('/login',function(req, res){

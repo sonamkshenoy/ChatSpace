@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {withRouter} from 'react-router-dom';
 
 
 class AuthComponent extends Component{
@@ -27,7 +28,7 @@ class AuthComponent extends Component{
     }
 
     handleSignupSubmit(e){
-        // e.preventDefault();
+        e.preventDefault(); // this is what prevents form parameters from appearing in the url (like in a get request)
         const user = {
             username : this.state.signupUsername,
             email : this.state.signupEmail,
@@ -37,6 +38,7 @@ class AuthComponent extends Component{
         .then(res => {
             console.log(res);
             console.log(res.data);
+            this.props.history.push('/notify');
         });
     }
 
@@ -133,4 +135,4 @@ class AuthComponent extends Component{
     }
 }
 
-export default AuthComponent;
+export default withRouter(AuthComponent);
