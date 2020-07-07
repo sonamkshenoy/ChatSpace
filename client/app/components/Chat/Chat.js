@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import '../css/App.css';
 import Cookies from 'universal-cookie';
+import HeaderComponent from '../Header/header';
+
 
 class ChatComponent extends Component{
   constructor(props){
@@ -11,6 +12,7 @@ class ChatComponent extends Component{
     }
   }
 
+  // reload the tab script since it's present in the footer, that's rendered just once. So when you reload the element, event listeners not re-added to it, since only changed part reloads and not the footer.
   componentDidMount(){
     const script = document.createElement("script");
     // script.src = "./chatClient.js";
@@ -22,6 +24,7 @@ class ChatComponent extends Component{
   render(){
   return (
     <div>
+      <HeaderComponent history={this.props.history}/>
       <div className="container section">
         <h3>Feeling bored?</h3>
         <p>Chat with your friends online! Make sure they are on this page.</p>

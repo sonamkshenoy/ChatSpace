@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import '../css/App.css';
 
 import ChatComponent from '../Chat/Chat';
 import AuthComponent from '../Auth/Auth';
@@ -15,7 +14,8 @@ const PrivateRoute = function({ component: Component, ...rest }){
   return (<Route {...rest} render={(props) => (
     typeof cookies.get('username') !== 'undefined'
       ? <Component {...props} />
-      : <Redirect to='/' />
+      // : <Redirect to='/' />
+      : props.history.push('/')
   )} />);
 }
 

@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 // import { useCookies } from 'react-cookie';
 import Cookies from 'universal-cookie';
+import HeaderComponent from '../Header/header';
+
 
 class AuthComponent extends Component{
     constructor(props) {
@@ -20,6 +22,13 @@ class AuthComponent extends Component{
         this.handleSignupSubmit = this.handleSignupSubmit.bind(this);
         this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
     }
+
+    componentDidMount(){
+        const script = document.createElement("script");
+        script.src = "/app/components/Auth/tab.js"
+        script.async = true;
+        document.body.appendChild(script);
+      }
     
     handleChange(e){
         const target = e.target;
@@ -70,7 +79,8 @@ class AuthComponent extends Component{
                 console.log(res.data);   
                 const cookies = new Cookies();
                 cookies.set('username', res.data.username, {path:'/'});
-                console.log(cookies.get('username'));             
+                console.log(cookies.get('username'));
+                console.log(this.props);             
                 this.props.history.push('/chat');
             }
             else{
@@ -88,6 +98,7 @@ class AuthComponent extends Component{
     render(){
         return(
             <div>
+                <HeaderComponent/>
                 <div className = "center">
                     <h5 className="indigo-text">Please, login into your account</h5>
                     <div className="col s12">
@@ -119,7 +130,7 @@ class AuthComponent extends Component{
                                         <button type='submit' name='btn_login' className='col s12 btn btn-large waves-effect indigo'>Login</button>
                                     </div>
                                     <p className='red-text'>{this.state.loginError}</p><br/>
-                                    <a className='pink-text tab' href="" id='createAccount'>Create account</a>
+                                    <Link className='pink-text tab' to="" id='createAccount'>Create account</Link>
                                     <br/><br/><br/>
                                     </div>
                                 </form>   

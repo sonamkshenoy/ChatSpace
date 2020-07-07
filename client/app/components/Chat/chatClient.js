@@ -3,17 +3,23 @@ var socket = io.connect('http://localhost:8000');
 
 console.log("Inside chatClient.js");
 
+/*
+Works, however reloads (no! React!)
+
 var LogoutButton = document.getElementsByClassName('addLogoutHere');
 console.log(LogoutButton);
 Object.keys(LogoutButton).forEach(tag=>{
   console.log(tag, LogoutButton[tag]);
   LogoutButton[tag].innerHTML='<li><a href="/" class="LogoutButton">Logout</a></li>';
 });
-// LogoutButton.innerHTML='<li><a onClick = {this.handleClick} href="/">Logout</a></li>';
+
+// Deleting a cookie in JavaScript
 
 $('.LogoutButton').on('click', function(){
     document.cookie = 'username=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 });
+*/
+
 
 var message = document.getElementById('message'),
     username = document.getElementById('username'),
