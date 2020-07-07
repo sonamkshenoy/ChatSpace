@@ -71,8 +71,8 @@ module.exports = function(app){
             if(user.emailVerified){
                 var sess = req.session;
                 sess.emailid = req.body.email;
-                sess.userName = user.displayName;
-                return res.status(200).send({"login":"successful"});
+                // sess.userName = user.displayName;
+                return res.status(200).send({"login":"successful", "username": user.displayName});
             }
             else{
                 console.log("Not verified");

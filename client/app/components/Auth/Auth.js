@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
-
+// import { useCookies } from 'react-cookie';
+import Cookies from 'universal-cookie';
 
 class AuthComponent extends Component{
     constructor(props) {
@@ -61,16 +62,15 @@ class AuthComponent extends Component{
         const user = {
             email : this.state.loginEmail,
             password : this.state.loginPassword
-        };
-        console.log(this.props.cookies);
+        };        
         axios.post('/login', user)
         .then(res => {
             if(res.status==200){
                 console.log(res);
-                console.log(res.data);
-                console.log(this.props.cookies);
-                cookies.set('name','Hoola',{path:'/'});
-                console.log(cookies.get('name'));
+                console.log(res.data);   
+                const cookies = new Cookies();
+                cookies.set('username', res.data.username, {path:'/'});
+                console.log(cookies.get('username'));             
                 this.props.history.push('/chat');
             }
             else{

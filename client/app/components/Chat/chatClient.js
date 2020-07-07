@@ -1,8 +1,22 @@
 var socket = io.connect('http://localhost:8000');
 
+
 console.log("Inside chatClient.js");
 
+var LogoutButton = document.getElementsByClassName('addLogoutHere');
+console.log(LogoutButton);
+Object.keys(LogoutButton).forEach(tag=>{
+  console.log(tag, LogoutButton[tag]);
+  LogoutButton[tag].innerHTML='<li><a href="/" class="LogoutButton">Logout</a></li>';
+});
+// LogoutButton.innerHTML='<li><a onClick = {this.handleClick} href="/">Logout</a></li>';
+
+$('.LogoutButton').on('click', function(){
+    document.cookie = 'username=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+});
+
 var message = document.getElementById('message'),
+    username = document.getElementById('username'),
     btn = document.getElementById('send'),
     output = document.getElementById('output'),
     feedback = document.getElementById('feedback');
@@ -14,6 +28,7 @@ btn.addEventListener('click', function(){
 
   socket.emit('chat',{
     message : message.value,
+    username : username.textContent,
   });
   message.value="";
 });

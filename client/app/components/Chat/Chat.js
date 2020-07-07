@@ -1,7 +1,15 @@
 import React, {Component} from 'react';
 import '../css/App.css';
+import Cookies from 'universal-cookie';
 
 class ChatComponent extends Component{
+  constructor(props){
+    super(props);
+    const cookies = new Cookies();
+    this.state={
+      username: cookies.get("username"),
+    }
+  }
 
   componentDidMount(){
     const script = document.createElement("script");
@@ -25,6 +33,7 @@ class ChatComponent extends Component{
         <div id="feedback"></div>
         <div className='input-field'>
           <i className="material-icons prefix">chat</i>
+          <p id = 'username' className = 'hide'>{this.state.username}</p>
           <input type="text" id='message'/>
           <label htmlFor="message">Message</label>
         </div>
