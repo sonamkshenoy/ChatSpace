@@ -6,6 +6,7 @@
 
 # configuration
 /server/routes/config.js
+/server/routes/chatspaceServiceAccountKey.json
 
 .env
 ToDo
