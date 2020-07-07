@@ -26,14 +26,12 @@ module.exports = function(app){
             // Create account
             try{
                 await firebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.password);
-                var sess = req.session;
-                sess.emailid = req.body.email;
             }
             catch(error){
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 console.log(errorMessage);
-                return res.redirect('/');
+                return res.status(202).send({"errorMsg":errorMessage});
             }
 
             var user = firebase.auth().currentUser;
@@ -46,6 +44,7 @@ module.exports = function(app){
             }
             catch(e){
                 console.log(e);
+                return res.status(202).send({"errorMsg":e}); // returning so doesn't go till res.status(200)
             }
 
             // Send confirmation email
@@ -54,27 +53,30 @@ module.exports = function(app){
             }
             catch(e){
                 console.log(e);
+                return res.status(202).send({"errorMsg":e});
             }
+
+            // execute inside the async function and not after the call, since that may get executed first
+            return res.status(200).send({"signup":"successful"});
         }
 
-        allAuthProcedure();
-        return res.status(200).send({"signup":"successful"});
+        allAuthProcedure();        
     });
 
     app.post('/login',function(req, res){
         console.log(req.body.email, req.body.password);
         firebase.auth().signInWithEmailAndPassword(req.body.email, req.body.password)
         .then(function(){
-            var sess = req.session;
-            sess.emailid = req.body.email;
-            // return res.redirect('/chat');
-
             var user = firebase.auth().currentUser;
             if(user.emailVerified){
+                var sess = req.session;
+                sess.emailid = req.body.email;
+                sess.userName = user.displayName;
                 return res.status(200).send({"login":"successful"});
             }
             else{
                 console.log("Not verified");
+                return res.status(202).send({"errorMsg":"You have not confirmed your email address. Please confirm you email address by clicking on the verification link sent to your email."});
             }
         })
         .catch(function(error) {
@@ -82,7 +84,7 @@ module.exports = function(app){
             var errorCode = error.code;
             var errorMessage = error.message;
             console.log(errorMessage);
-            return res.redirect('/');
+            return res.status(202).send({"errorMsg":errorMessage});
           });
     });
     

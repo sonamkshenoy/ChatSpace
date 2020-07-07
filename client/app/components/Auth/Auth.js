@@ -9,9 +9,11 @@ class AuthComponent extends Component{
         this.state = {
             loginEmail:'',
             loginPassword: '',
+            loginError:'',
             signupEmail:'',
             signupPassword:'',
-            signupUsername:''
+            signupUsername:'',
+            signupError:'',
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSignupSubmit = this.handleSignupSubmit.bind(this);
@@ -23,8 +25,10 @@ class AuthComponent extends Component{
         const field = target.name;
         const value = target.value;
         this.setState({
-            [field]: value
-        });
+            [field]: value,
+            "loginError" : "",
+            "signupError" : ""
+        }); // last two lines to remove error msg when user starts correcting error
     }
 
     handleSignupSubmit(e){
@@ -36,9 +40,19 @@ class AuthComponent extends Component{
         };
         axios.post('/signup', user)
         .then(res => {
-            console.log(res);
-            console.log(res.data);
-            this.props.history.push('/notify');
+            if(res.status==200){
+                console.log(res);
+                console.log(res.data);
+                this.props.history.push('/notify');
+            }
+            else{
+                this.setState({
+                    "signupError":res.data.errorMsg
+                });
+            }            
+        })
+        .catch(e => {
+            console.log(e);
         });
     }
 
@@ -51,12 +65,23 @@ class AuthComponent extends Component{
         console.log(this.props.cookies);
         axios.post('/login', user)
         .then(res => {
-            console.log(res);
-            console.log(res.data);
-            console.log(this.props.cookies);
-            cookies.set('name','Hoola',{path:'/'});
-            console.log(cookies.get('name'));
-            this.props.history.push('/chat');
+            if(res.status==200){
+                console.log(res);
+                console.log(res.data);
+                console.log(this.props.cookies);
+                cookies.set('name','Hoola',{path:'/'});
+                console.log(cookies.get('name'));
+                this.props.history.push('/chat');
+            }
+            else{
+                console.log(res.data);
+                this.setState({
+                    "loginError":res.data.errorMsg
+                });
+            }
+        })
+        .catch(e => {
+            console.log(e);
         });
     }
 
@@ -93,7 +118,9 @@ class AuthComponent extends Component{
                                     <div className='row'>
                                         <button type='submit' name='btn_login' className='col s12 btn btn-large waves-effect indigo'>Login</button>
                                     </div>
+                                    <p className='red-text'>{this.state.loginError}</p><br/>
                                     <a className='pink-text tab' href="" id='createAccount'>Create account</a>
+                                    <br/><br/><br/>
                                     </div>
                                 </form>   
                             </div>
@@ -129,6 +156,7 @@ class AuthComponent extends Component{
                                     <div className='row'>
                                         <button type='submit' name='btn_login' className='col s12 btn btn-large waves-effect indigo'>Sign up</button>
                                     </div>
+                                    <p className='red-text'>{this.state.signupError}</p>
                                     </div>
                                 </form>
                             </div>
