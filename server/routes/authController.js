@@ -9,7 +9,7 @@ require("firebase/firestore");
 
 // TODO: Replace the following with your app's Firebase project configuration
 
-const firebaseConfig = require('./config.js');
+const firebaseConfig = require('../config/config.js');
 firebase.initializeApp(firebaseConfig);
   
 

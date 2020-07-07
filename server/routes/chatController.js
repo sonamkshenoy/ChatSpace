@@ -1,8 +1,7 @@
 var socket = require('socket.io');
 
 const admin = require('firebase-admin');
-// chat-space-16db3-f47478fb7f7b
-const serviceAccount = require('./chatspaceServiceAccountKey.json');
+const serviceAccount = require('../config/chatspaceServiceAccountKey.json');
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });

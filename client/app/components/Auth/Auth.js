@@ -23,6 +23,7 @@ class AuthComponent extends Component{
         this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
     }
 
+    // reload the tab script since it's present in the footer, that's rendered just once. So when you reload the element, event listeners not re-added to it, since only changed part reloads and not the footer.
     componentDidMount(){
         const script = document.createElement("script");
         script.src = "/app/components/Auth/tab.js"
