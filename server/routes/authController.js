@@ -49,6 +49,7 @@ module.exports = function(app){
 
             // Send confirmation email
             try{
+                // https://firebase.google.com/docs/auth/web/manage-users
                 await user.sendEmailVerification();
             }
             catch(e){
@@ -86,6 +87,20 @@ module.exports = function(app){
             console.log(errorMessage);
             return res.status(202).send({"errorMsg":errorMessage});
           });
+    });
+
+    app.post('/resetPassword', function(req, res){
+        // https://firebase.google.com/docs/auth/web/manage-users
+        var auth = firebase.auth();
+        var sess = req.session;
+        var emailAddress = req.body.email;
+
+        auth.sendPasswordResetEmail(emailAddress).then(function() {
+            console.log("Reset link sent successfully");
+            return res.status(200).send({"resetSend":"successful"});
+        }).catch(function(error) {
+            return res.status(202).send({errorMsg:error});
+        });
     });
     
 }

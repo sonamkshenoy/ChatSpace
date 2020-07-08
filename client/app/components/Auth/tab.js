@@ -4,4 +4,5 @@ $(document).ready(function(){
         e.preventDefault();
         $('ul.tabs').tabs('select', 'test-swipe-4');
     });
+    $('.sidenav').sidenav();
 });

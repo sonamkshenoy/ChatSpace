@@ -17,10 +17,17 @@ class AuthComponent extends Component{
             signupPassword:'',
             signupUsername:'',
             signupError:'',
+            displayLoginPasswordField:true,
         };
+
+        // defines what the "this" will refer to in these functions. It will refer to the react component. Hence this.state.xxx will refer to the " React class' " state.
+
         this.handleChange = this.handleChange.bind(this);
         this.handleSignupSubmit = this.handleSignupSubmit.bind(this);
         this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
+        this.handleInitiateResetPassword = this.handleInitiateResetPassword.bind(this);
+        this.handleResetPassword = this.handleResetPassword.bind(this);
+        this.goBackToLogin = this.goBackToLogin.bind(this);
     }
 
     // reload the tab script since it's present in the footer, that's rendered just once. So when you reload the element, event listeners not re-added to it, since only changed part reloads and not the footer.
@@ -96,7 +103,83 @@ class AuthComponent extends Component{
         });
     }
 
+    handleInitiateResetPassword(e){
+        e.preventDefault();
+        // console.log(e.target);
+        // console.log(e.target.onclick);
+        // e.target.onclick = this.handleResetPassword;
+        this.setState({
+            displayLoginPasswordField: false,
+            loginError: "",
+        });
+    }
+
+    handleResetPassword(e){
+        e.preventDefault();
+        // this.state.loginError = "xxx" // outdated way
+        console.log("Inside reset");
+        var user = {
+            email: this.state.loginEmail,
+        };
+
+        axios.post('/resetPassword', user)
+        // .then({ // no argument so no arrow (as in arrow function) nor () braces as in normal JS function 
+        .then(res=>{
+            if(res.status==200){ // status is not accessed as ".data."
+                this.setState({
+                    loginError : "A link to reset your password has been sent to your email."
+                });
+            }
+            else{
+                this.setState({
+                    "loginError": res.data.errorMsg.message,
+                });
+                // console.log("There",res.data.errorMsg);
+                // console.log("There",res.data.errorMsg.message);
+            }
+        })
+        .catch(e => {
+            console.log("Here",e);
+        });
+    }
+
+    goBackToLogin(e){
+        e.preventDefault();
+        this.setState({
+            displayLoginPasswordField: true,
+            loginError: "",
+        });
+    }
+
     render(){
+        var passwordField;
+        var loginTabButton;
+        if(this.state.displayLoginPasswordField){
+            passwordField = <div className='row'>
+                                <div className='input-field col s12'>
+                                    <label htmlFor='password'>Enter your password</label>
+                                    <input className='validate' type='password' name='loginPassword' onChange={this.handleChange} />
+                                </div>
+                            </div>;
+            
+            loginTabButton = <div>
+                                <div className='row'>
+                                    <button type='submit' name='btn_login' className='col s12 btn btn-large waves-effect indigo'>Login</button>
+                                </div>
+                                <Link className='pink-text tab' to="" onClick={this.handleInitiateResetPassword}>Forgot Password?</Link><br/><br/>
+                            </div>;
+        }
+        else{
+            loginTabButton = <div>
+                               <div className='row'>
+                                    <button type='submit' name='btn_login' className='col s12 btn btn-large waves-effect indigo' onClick = {this.handleResetPassword}>Reset Password</button>
+                                </div>
+                                <Link className='pink-text tab' to="" onClick={this.goBackToLogin}><i className="material-icons prefix" style={{verticalAlign:"bottom"}}>arrow_back</i>Back</Link><br/><br/>
+                            </div>;
+        }
+
+        
+        
         return(
             <div>
                 <HeaderComponent/>
@@ -114,22 +197,15 @@ class AuthComponent extends Component{
                             <div className="z-depth-1 grey lighten-4 row" style={{padding: "32px 48px 0px 48px", border: "1px solid #EEE"}}>
                                 <form className="col s12" onSubmit={this.handleLoginSubmit}>
                                     <div className='row'>
-                                    <div className='input-field col s12'>
-                                        <label htmlFor='email'>Enter your email</label>
-                                        <input className='validate' type='email' name='loginEmail' onChange={this.handleChange} />
+                                        <div className='input-field col s12'>
+                                            <label htmlFor='email'>Enter your email</label>
+                                            <input className='validate' type='email' name='loginEmail' onChange={this.handleChange} />
+                                        </div>
                                     </div>
-                                    </div>
-                                    <div className='row'>
-                                    <div className='input-field col s12'>
-                                        <label htmlFor='password'>Enter your password</label>
-                                        <input className='validate' type='password' name='loginPassword' onChange={this.handleChange} />
-                                    </div>
-                                    </div>
+                                    {passwordField}
                                     <br />
                                     <div className="center">
-                                    <div className='row'>
-                                        <button type='submit' name='btn_login' className='col s12 btn btn-large waves-effect indigo'>Login</button>
-                                    </div>
+                                    {loginTabButton}
                                     <p className='red-text'>{this.state.loginError}</p><br/>
                                     <Link className='pink-text tab' to="" id='createAccount'>Create account</Link>
                                     <br/><br/><br/>
