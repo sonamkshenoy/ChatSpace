@@ -34,7 +34,7 @@ class HeaderComponent extends Component{
                     <nav className="nav-wrapper deep-purple darken-3">
                         <div className="container">
                         <Link to="#" className="brand-logo">ChatSpace</Link>
-                        <Link to="" className="sidenav-trigger" data-target="mobile-menu"><i className="material-icons">menu</i></Link>
+                        <Link to="" className="sidenav-trigger" data-target="mobile-menu"><i className="material-icons">menu</i></Link>                        
                         <ul className="right hide-on-med-and-down">
                             {/* <li><a href="/">Home</a></li>
                             <li><a href="/chat">Converse</a></li> */}

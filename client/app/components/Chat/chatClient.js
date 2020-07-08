@@ -46,15 +46,23 @@ socket.on('chat', function(data){
   feedback.innerHTML="";
 
   var newElement = document.createElement('div');
-  newElement.innerHTML='<p>'+ 'Anon: ' +data.message+'</p>';
+  newElement.innerHTML='<p>'+data.username+ ': ' +data.message+'</p>';
   output.appendChild(newElement);
 });
 
 message.addEventListener('keypress',function(){
-  socket.emit('typing', 'anon2');
+  socket.emit('typing', {username : username.textContent,});
 });
 
 
 socket.on('typing', function(data){
-  feedback.innerHTML = '<p><em>'+ 'anon2' + ' is typing ...</em></p>';
+  feedback.innerHTML = '<p><em>'+ data.username + ' is typing ...</em></p>';
+});
+
+var input = document.getElementById("message");
+input.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("send").click();
+  }
 });

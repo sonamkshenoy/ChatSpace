@@ -31,7 +31,7 @@ module.exports = function(app, server){
       var newchat = {'Name':name, "Conv":conv};
 
       const ConversationsCollection = db.collection('Conversations')
-      const lastOneRes = await ConversationsCollection.orderBy('Time').limit(1).get();
+      const lastOneRes = await ConversationsCollection.orderBy('Time', 'desc').limit(1).get();
       // var DocsCollection;
 
       var date = new Date();

@@ -28,14 +28,31 @@ class AuthComponent extends Component{
         this.handleInitiateResetPassword = this.handleInitiateResetPassword.bind(this);
         this.handleResetPassword = this.handleResetPassword.bind(this);
         this.goBackToLogin = this.goBackToLogin.bind(this);
+        this.authWithGoogle = this.authWithGoogle.bind(this);
     }
 
     // reload the tab script since it's present in the footer, that's rendered just once. So when you reload the element, event listeners not re-added to it, since only changed part reloads and not the footer.
     componentDidMount(){
+        
+        const script2 = document.createElement("script");
+        script2.src = "https://apis.google.com/js/platform.js";
+        script2.defer = true;
+        script2.async = true;
+        document.body.appendChild(script2);
         const script = document.createElement("script");
-        script.src = "/app/components/Auth/tab.js"
+        script.src = "/app/components/Auth/tab.js";
         script.async = true;
         document.body.appendChild(script);
+
+        gapi.signin2.render('g-signin2', {
+            'scope': 'https://www.googleapis.com/auth/plus.login',
+            'width': 200,
+            'height': 50,
+            'longtitle': true,
+            'theme': 'dark',
+            'onsuccess': this. onSignIn
+          }); 
+
       }
     
     handleChange(e){
@@ -151,6 +168,54 @@ class AuthComponent extends Component{
         });
     }
 
+    authWithGoogle(e){
+        e.preventDefault();
+        var data = {
+            msg : "authMe", // dummy (only post requests go to server)
+        }
+        axios.post('/authWithGoogle',data)
+        .then(res=>{ // promise always returns parameter, so take it regardless of whether you want it or not
+            if(res.status==200){
+                this.props.history.push('/chat');
+            }
+            else{
+                this.setState({
+                    "loginError": res.data.errorMsg,
+                });
+            }
+        })
+        .catch(e => {
+            console.log(e);
+        });
+    }
+
+    onSignIn(googleUser) {
+        console.log('Google Auth Response', googleUser);
+        // We need to register an Observer on Firebase Auth to make sure auth is initialized.
+        var unsubscribe = firebase.auth().onAuthStateChanged(function(firebaseUser) {
+          unsubscribe();
+          // Check if we are already signed-in Firebase with the correct user.
+          if (!isUserEqual(googleUser, firebaseUser)) {
+            // Build Firebase credential with the Google ID token.
+            var credential = firebase.auth.GoogleAuthProvider.credential(
+                googleUser.getAuthResponse().id_token);
+            // Sign in with credential from the Google user.
+            firebase.auth().signInWithCredential(credential).catch(function(error) {
+              // Handle Errors here.
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              // The email of the user's account used.
+              var email = error.email;
+              // The firebase.auth.AuthCredential type that was used.
+              var credential = error.credential;
+              // ...
+            });
+          } else {
+            console.log('User already signed-in Firebase.');
+          }
+        });
+      }
+
     render(){
         var passwordField;
         var loginTabButton;
@@ -207,6 +272,9 @@ class AuthComponent extends Component{
                                     <div className="center">
                                     {loginTabButton}
                                     <p className='red-text'>{this.state.loginError}</p><br/>
+                                    {/* <Link to="" className='pink-text tab' onClick={this.authWithGoogle}>Sign in with Google</Link><br/> */}
+                                    {/* <div className="g-signin2" data-onsuccess="onSignIn"></div> */}
+                                    <div className="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
                                     <Link className='pink-text tab' to="" id='createAccount'>Create account</Link>
                                     <br/><br/><br/>
                                     </div>
