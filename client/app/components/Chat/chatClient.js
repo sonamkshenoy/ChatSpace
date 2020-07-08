@@ -29,7 +29,7 @@ var message = document.getElementById('message'),
 
 btn.addEventListener('click', function(){
   var newElement = document.createElement('div');
-  newElement.innerHTML='<p><strong>'+ 'You' +' :</strong> '+message.value+'</p>';
+  newElement.innerHTML='<p><strong style="font-weight:900;">'+ 'You: ' +message.value + ' </strong>' + '</p>';
   output.appendChild(newElement);
 
   socket.emit('chat',{
@@ -46,7 +46,7 @@ socket.on('chat', function(data){
   feedback.innerHTML="";
 
   var newElement = document.createElement('div');
-  newElement.innerHTML='<p><strong>'+ 'Anon' +' :</strong> '+data.message+'</p>';
+  newElement.innerHTML='<p>'+ 'Anon: ' +data.message+'</p>';
   output.appendChild(newElement);
 });
 
