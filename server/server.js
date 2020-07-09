@@ -5,8 +5,8 @@ require('dotenv').config();
 var app = express();
 
 
-const session = require('express-session');
-app.use(session({secret: process.env.SESSIONSECRET ,saveUninitialized: true,resave: true}));
+// const session = require('express-session');
+// app.use(session({secret: process.env.SESSIONSECRET ,saveUninitialized: true,resave: true}));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../client'));

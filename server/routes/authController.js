@@ -1,5 +1,5 @@
 var bodyParser = require('body-parser');
-const session = require('express-session');
+// const session = require('express-session');
 require('dotenv').config();
 
 // configure firebase
@@ -72,8 +72,8 @@ module.exports = function(app){
         .then(function(){
             var user = firebase.auth().currentUser;
             if(user.emailVerified){
-                var sess = req.session;
-                sess.emailid = req.body.email;
+                // var sess = req.session;
+                // sess.emailid = req.body.email;
                 // sess.userName = user.displayName;
                 return res.status(200).send({"login":"successful", "username": user.displayName});
             }
@@ -95,7 +95,7 @@ module.exports = function(app){
     app.post('/resetPassword', function(req, res){
         // https://firebase.google.com/docs/auth/web/manage-users
         var auth = firebase.auth();
-        var sess = req.session;
+        // var sess = req.session;
         var emailAddress = req.body.email;
 
         auth.sendPasswordResetEmail(emailAddress).then(function() {
