@@ -36,7 +36,7 @@ Several features have been implemented for email-and-password sign in such as i)
 ----
 
 ## Configuration Files  
-All configuration files are placed in a folder called `config` ( ChatSpace > server > routes ) which sits right next to the `routes` ( ChatSpace > server > routes ) folder.  
+All configuration files are placed in a folder called `config` ( ChatSpace > server > config ) which sits right next to the `routes` ( ChatSpace > server > routes ) folder.  
 In this folder you are supposed to place 2 files:   
 
 ```
@@ -81,7 +81,8 @@ Of course, replace `...` with the API credentials of your Firebase app.
 
 ## Setting up the project 
 1. Make sure you have placed the configuration files in the appropriate folder as described above.   
-2. Run these commands:   
+2. In [chatClient.js](https://github.com/sonamkshenoy/Chat-Space/blob/master/client/app/components/Chat/chatClient.js)  (ChatSpace > client > app > components > Chat > chatClient.js), change the IP address in [Line 2](https://github.com/sonamkshenoy/Chat-Space/blob/f21c68f1bbf25a2eaa61332fa2e33ad5740d0c90/client/app/components/Chat/chatClient.js#L2) to the IP address of the server you are running this project on. If you retain it as `localhost` as in Line 1, you won't be able to connect to the socket on other devices. Hence, chatting won't work on other devices though the website still runs if you use `localhost` instead of the IP.  
+3. Run these commands:   
 ```
 npm install  
 npm start
