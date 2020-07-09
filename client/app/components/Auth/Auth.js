@@ -44,14 +44,14 @@ class AuthComponent extends Component{
         script.async = true;
         document.body.appendChild(script);
 
-        gapi.signin2.render('g-signin2', {
-            'scope': 'https://www.googleapis.com/auth/plus.login',
-            'width': 200,
-            'height': 50,
-            'longtitle': true,
-            'theme': 'dark',
-            'onsuccess': this. onSignIn
-          }); 
+        // gapi.signin2.render('g-signin2', {
+        //     'scope': 'https://www.googleapis.com/auth/plus.login',
+        //     'width': 200,
+        //     'height': 50,
+        //     'longtitle': true,
+        //     'theme': 'dark',
+        //     'onsuccess': this. onSignIn
+        //   }); 
 
       }
     
@@ -191,29 +191,8 @@ class AuthComponent extends Component{
 
     onSignIn(googleUser) {
         console.log('Google Auth Response', googleUser);
-        // We need to register an Observer on Firebase Auth to make sure auth is initialized.
-        var unsubscribe = firebase.auth().onAuthStateChanged(function(firebaseUser) {
-          unsubscribe();
-          // Check if we are already signed-in Firebase with the correct user.
-          if (!isUserEqual(googleUser, firebaseUser)) {
-            // Build Firebase credential with the Google ID token.
-            var credential = firebase.auth.GoogleAuthProvider.credential(
-                googleUser.getAuthResponse().id_token);
-            // Sign in with credential from the Google user.
-            firebase.auth().signInWithCredential(credential).catch(function(error) {
-              // Handle Errors here.
-              var errorCode = error.code;
-              var errorMessage = error.message;
-              // The email of the user's account used.
-              var email = error.email;
-              // The firebase.auth.AuthCredential type that was used.
-              var credential = error.credential;
-              // ...
-            });
-          } else {
-            console.log('User already signed-in Firebase.');
-          }
-        });
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log(id_token);
       }
 
     render(){
@@ -274,7 +253,7 @@ class AuthComponent extends Component{
                                     <p className='red-text'>{this.state.loginError}</p><br/>
                                     {/* <Link to="" className='pink-text tab' onClick={this.authWithGoogle}>Sign in with Google</Link><br/> */}
                                     {/* <div className="g-signin2" data-onsuccess="onSignIn"></div> */}
-                                    <div className="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+                                    {/* <div className="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div> */}
                                     <Link className='pink-text tab' to="" id='createAccount'>Create account</Link>
                                     <br/><br/><br/>
                                     </div>

@@ -21,6 +21,9 @@
     
     <div id="root"></div>
 
+    <h1> HI </h1>
+    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+
     <script src="bundle.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -36,6 +39,19 @@
           $('ul.tabs').tabs('select', 'test-swipe-4');
         });
       })
+
+      function onSignIn(googleUser) {
+        console.log('Google Auth Response', googleUser);
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log(id_token);
+        $.post('/authWithGoogle',
+        {
+          id_token : id_token,
+        },
+        function(data, status){
+          console.log(data,status);
+        });
+      }
     </script>
   </body>
 </html>

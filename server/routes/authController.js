@@ -104,30 +104,50 @@ module.exports = function(app){
     });
     
     app.post('/authWithGoogle', function(req, res){
-        var provider = new firebase.auth.GoogleAuthProvider();
-        provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-        firebase.auth().signInWithRedirect(provider);
-        firebase.auth().getRedirectResult()
-            .then(function(result) {
-            if (result.credential) {
-              // This gives you a Google Access Token. You can use it to access the Google API.
-              var token = result.credential.accessToken;
-              // ...
-            }
-            // The signed-in user info.
-            var user = result.user;
-            console.log(user);
+
+        // Build Firebase credential with the Google ID token.
+        var credential = firebase.auth.GoogleAuthProvider.credential(req.body.id_token);
+
+        // Sign in with credential from the Google user.
+        firebase.auth().signInWithCredential(credential)
+            .then(res=>{
+                console.log("User created using Google");
             })
             .catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-            // ...
-          });
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+                // ...
+            });
+
+        // var provider = new firebase.auth.GoogleAuthProvider();
+        // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+        // firebase.auth().signInWithRedirect(provider);
+        // firebase.auth().getRedirectResult()
+        //     .then(function(result) {
+        //     if (result.credential) {
+        //       // This gives you a Google Access Token. You can use it to access the Google API.
+        //       var token = result.credential.accessToken;
+        //       // ...
+        //     }
+        //     // The signed-in user info.
+        //     var user = result.user;
+        //     console.log(user);
+        //     })
+        //     .catch(function(error) {
+        //     // Handle Errors here.
+        //     var errorCode = error.code;
+        //     var errorMessage = error.message;
+        //     // The email of the user's account used.
+        //     var email = error.email;
+        //     // The firebase.auth.AuthCredential type that was used.
+        //     var credential = error.credential;
+        //     // ...
+        //   });
           
     });
 }
