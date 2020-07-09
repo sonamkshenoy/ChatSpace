@@ -105,15 +105,16 @@ module.exports = function(app){
     
     app.post('/authWithGoogle', function(req, res){
 
-        // Build Firebase credential with the Google ID token.
-        var credential = firebase.auth.GoogleAuthProvider.credential(req.body.id_token);
+        async function createGoogleUser(){
+            // Build Firebase credential with the Google ID token.
+            var credential = firebase.auth.GoogleAuthProvider.credential(req.body.id_token);
 
-        // Sign in with credential from the Google user.
-        firebase.auth().signInWithCredential(credential)
-            .then(res=>{
+            // Sign in with credential from the Google user.
+            try{
+                var resp = await firebase.auth().signInWithCredential(credential);            
                 console.log("User created using Google");
-            })
-            .catch(function(error) {
+            }
+            catch(error){
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
@@ -122,32 +123,23 @@ module.exports = function(app){
                 // The firebase.auth.AuthCredential type that was used.
                 var credential = error.credential;
                 // ...
-            });
+            }
+            var user = firebase.auth().currentUser;
+            console.log(user.displayName);
 
-        // var provider = new firebase.auth.GoogleAuthProvider();
-        // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-        // firebase.auth().signInWithRedirect(provider);
-        // firebase.auth().getRedirectResult()
-        //     .then(function(result) {
-        //     if (result.credential) {
-        //       // This gives you a Google Access Token. You can use it to access the Google API.
-        //       var token = result.credential.accessToken;
-        //       // ...
-        //     }
-        //     // The signed-in user info.
-        //     var user = result.user;
-        //     console.log(user);
-        //     })
-        //     .catch(function(error) {
-        //     // Handle Errors here.
-        //     var errorCode = error.code;
-        //     var errorMessage = error.message;
-        //     // The email of the user's account used.
-        //     var email = error.email;
-        //     // The firebase.auth.AuthCredential type that was used.
-        //     var credential = error.credential;
-        //     // ...
-        //   });
+            // Don't have to set display name (Google already does it for us - hence it's displaying in the console.log above though I didn't add)
+            // try{
+            //     await user.updateProfile({
+            //         displayName: req.body.username
+            //     })
+            // }
+            // catch(e){
+            //     console.log(e);
+            //     return res.status(202).send({"errorMsg":e}); // returning so doesn't go till res.status(200)
+            // }
+        }
+
+        createGoogleUser();            
           
     });
 }
