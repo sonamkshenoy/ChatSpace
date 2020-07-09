@@ -123,9 +123,12 @@ module.exports = function(app){
                 // The firebase.auth.AuthCredential type that was used.
                 var credential = error.credential;
                 // ...
+                return res.status(202).send({errorMsg:errorMessage});
             }
             var user = firebase.auth().currentUser;
             console.log(user.displayName);
+
+            return res.status(200).send({login:"successful",username:user.displayName});
 
             // Don't have to set display name (Google already does it for us - hence it's displaying in the console.log above though I didn't add)
             // try{

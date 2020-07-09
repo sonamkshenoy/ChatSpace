@@ -37,3 +37,19 @@ height:350px;
   left: 50%;
   transform: translate(-50%, -50%);
 } */
+
+.abcRioButtonContentWrapper::after {
+  font-size: 13px;
+  line-height: 34px;
+  content: "Sign in";
+}
+
+.abcRioButtonContents{
+  display: none;
+}
+
+/* #myGoogleSigninButton{
+  font-size: 13px;
+  line-height: 34px;
+} */
+

@@ -19,6 +19,10 @@ class HeaderComponent extends Component{
         var cookies = new Cookies();
         cookies.remove('username',{'path':'/'});
         console.log(this.props);
+        if(cookies.get('googleUsed')){
+            cookies.remove('googleUsed',{path:'/'});
+            cookies.remove('googleSignInClicked',{path:'/'});
+        }
         this.props.history.push('/');
     }
 

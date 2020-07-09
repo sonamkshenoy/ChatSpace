@@ -28,7 +28,7 @@ class AuthComponent extends Component{
         this.handleInitiateResetPassword = this.handleInitiateResetPassword.bind(this);
         this.handleResetPassword = this.handleResetPassword.bind(this);
         this.goBackToLogin = this.goBackToLogin.bind(this);
-        this.authWithGoogle = this.authWithGoogle.bind(this);
+        this.setGoogleClickedCookie = this.setGoogleClickedCookie.bind(this);
     }
 
     // reload the tab script since it's present in the footer, that's rendered just once. So when you reload the element, event listeners not re-added to it, since only changed part reloads and not the footer.
@@ -168,32 +168,11 @@ class AuthComponent extends Component{
         });
     }
 
-    authWithGoogle(e){
+    setGoogleClickedCookie(e){
         e.preventDefault();
-        var data = {
-            msg : "authMe", // dummy (only post requests go to server)
-        }
-        axios.post('/authWithGoogle',data)
-        .then(res=>{ // promise always returns parameter, so take it regardless of whether you want it or not
-            if(res.status==200){
-                this.props.history.push('/chat');
-            }
-            else{
-                this.setState({
-                    "loginError": res.data.errorMsg,
-                });
-            }
-        })
-        .catch(e => {
-            console.log(e);
-        });
+        const cookies = new Cookies();
+        cookies.set('googleSignInClicked', true, {path:'/'});
     }
-
-    onSignIn(googleUser) {
-        console.log('Google Auth Response', googleUser);
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log(id_token);
-      }
 
     render(){
         var passwordField;
@@ -251,9 +230,7 @@ class AuthComponent extends Component{
                                     <div className="center">
                                     {loginTabButton}
                                     <p className='red-text'>{this.state.loginError}</p><br/>
-                                    {/* <Link to="" className='pink-text tab' onClick={this.authWithGoogle}>Sign in with Google</Link><br/> */}
-                                    {/* <div className="g-signin2" data-onsuccess="onSignIn"></div> */}
-                                    {/* <div className="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div> */}
+                                    <div className="g-signin2" onClick={this.setGoogleClickedCookie} data-onsuccess="onSignIn" data-theme="dark"></div>
                                     <Link className='pink-text tab' to="" id='createAccount'>Create account</Link>
                                     <br/><br/><br/>
                                     </div>
