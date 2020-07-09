@@ -19,18 +19,21 @@ class HeaderComponent extends Component{
         var cookies = new Cookies();
         cookies.remove('username',{'path':'/'});
         console.log(this.props);
-        if(cookies.get('googleUsed')){
-            cookies.remove('googleUsed',{path:'/'});
+        if(cookies.get('googleSignInClicked')){
             cookies.remove('googleSignInClicked',{path:'/'});
         }
         this.props.history.push('/');
     }
 
     render(){
-        let button;
+        let Logoutbutton;
+        let Homebutton;
         if(this.state.username){
-            button = <li><Link onClick = {this.handleClick} to="/">Logout</Link></li>;
+            Logoutbutton = <li><Link onClick = {this.handleClick} to="/">Logout</Link></li>;
         }
+        // if(!this.state.username){
+        //     Homebutton = <li><Link to="/">Home</Link></li>;
+        // }
         
         return(
             <div>
@@ -44,7 +47,7 @@ class HeaderComponent extends Component{
                             <li><a href="/chat">Converse</a></li> */}
                             <li><Link to="/">Home</Link></li>
                             <li><Link to="/chat">Converse</Link></li>
-                            {button}                         
+                            {Logoutbutton}                         
                             {/* <span class="addLogoutHere"></span> */}
                         </ul>
                         <ul className="sidenav purple darken-4" id="mobile-menu">
@@ -52,11 +55,12 @@ class HeaderComponent extends Component{
                             <li><a href="/chat">Converse</a></li> */}
                             <li><Link to="/">Home</Link></li>
                             <li><Link to="/chat">Converse</Link></li>
-                            {button}
+                            {Logoutbutton}
                             {/* <span class="addLogoutHere"></span> */}
                         </ul>
                         </div>
                     </nav>
+                    <h1 className='jumbotronTitle'>The World's Best Chatting Space!</h1>
                 </header>
             </div>
         );

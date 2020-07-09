@@ -44,15 +44,10 @@ class AuthComponent extends Component{
         script.async = true;
         document.body.appendChild(script);
 
-        // gapi.signin2.render('g-signin2', {
-        //     'scope': 'https://www.googleapis.com/auth/plus.login',
-        //     'width': 200,
-        //     'height': 50,
-        //     'longtitle': true,
-        //     'theme': 'dark',
-        //     'onsuccess': this. onSignIn
-        //   }); 
-
+        var cookies = new Cookies();
+        if(cookies.get('googleSignInClicked')){
+            cookies.remove('googleSignInClicked',{path:'/'});
+        }
       }
     
     handleChange(e){
@@ -93,6 +88,10 @@ class AuthComponent extends Component{
 
     handleLoginSubmit(e){
         e.preventDefault();
+        var cookies = new Cookies();
+        if(cookies.get('googleSignInClicked')){
+            cookies.remove('googleSignInClicked',{path:'/'});
+        }
         const user = {
             email : this.state.loginEmail,
             password : this.state.loginPassword
@@ -189,7 +188,7 @@ class AuthComponent extends Component{
                                 <div className='row'>
                                     <button type='submit' name='btn_login' className='col s12 btn btn-large waves-effect indigo'>Login</button>
                                 </div>
-                                <Link className='pink-text tab' to="" onClick={this.handleInitiateResetPassword}>Forgot Password?</Link><br/><br/>
+                                <Link className='pink-text tab' to="" onClick={this.handleInitiateResetPassword}>Forgot Password?</Link><br/>
                             </div>;
         }
         else{
@@ -230,8 +229,8 @@ class AuthComponent extends Component{
                                     <div className="center">
                                     {loginTabButton}
                                     <p className='red-text'>{this.state.loginError}</p><br/>
-                                    <div className="g-signin2" onClick={this.setGoogleClickedCookie} data-onsuccess="onSignIn" data-theme="dark"></div>
-                                    <Link className='pink-text tab' to="" id='createAccount'>Create account</Link>
+                                    <Link className='pink-text tab' to="" id='createAccount'>Create account</Link><br/><br/><br/>
+                                    <div className="g-signin2 container" onClick={this.setGoogleClickedCookie} data-onsuccess="onSignIn" data-theme="dark"></div>                                    
                                     <br/><br/><br/>
                                     </div>
                                 </form>   

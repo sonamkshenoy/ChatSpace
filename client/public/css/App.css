@@ -53,3 +53,70 @@ height:350px;
   line-height: 34px;
 } */
 
+.jumbotronTitle{
+  text-align: center;
+  color: white;
+  margin-top: 200px;
+}
+
+.abcRioButton.abcRioButtonBlue{
+  width:200px !important;
+  margin-left:210px !important;
+}
+
+@media only screen and (max-width: 1254px) {
+  /* For mobile phones: */
+  .abcRioButton.abcRioButtonBlue{
+    width:200px !important;
+    margin-left:150px !important;
+  }
+}
+
+@media only screen and (max-width: 990px) {
+  /* For mobile phones: */
+  .abcRioButton.abcRioButtonBlue{
+    width:200px !important;
+    margin-left:210px !important;
+  }
+}
+
+@media only screen and (max-width: 870px) {
+  /* For mobile phones: */
+  .abcRioButton.abcRioButtonBlue{
+    width:200px !important;
+    margin-left:140px !important;
+  }
+}
+
+@media only screen and (max-width: 718px) {
+  /* For mobile phones: */
+  .abcRioButton.abcRioButtonBlue{
+    width:200px !important;
+    margin-left:100px !important;
+  }
+}
+
+@media only screen and (max-width: 620px) {
+  /* For mobile phones: */
+  .abcRioButton.abcRioButtonBlue{
+    margin-left:110px !important;
+  }
+}
+
+@media only screen and (max-width: 520px) {
+  /* For mobile phones: */
+  .abcRioButton.abcRioButtonBlue{
+    width:150px !important;
+    margin-left:75px !important;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  /* For mobile phones: */
+  .abcRioButton.abcRioButtonBlue{
+    width: 100% !important;
+    margin-left: 0px !important;
+  }
+}
+/* width: 240px;
+margin-left: 200px; */

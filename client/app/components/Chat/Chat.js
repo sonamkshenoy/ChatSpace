@@ -15,9 +15,14 @@ class ChatComponent extends Component{
   componentDidMount(){
     const script = document.createElement("script");
     // script.src = "./chatClient.js";
-    script.src = "/app/components/Chat/chatClient.js"
+    script.src = "/app/components/Chat/chatClient.js";
     script.async = true;
     document.body.appendChild(script);
+    const script2 = document.createElement("script");
+    // script.src = "./chatClient.js";
+    script2.src = "/app/components/Auth/tab.js";
+    script2.async = true;
+    document.body.appendChild(script2);
   }
 
   render(){
@@ -42,6 +47,7 @@ class ChatComponent extends Component{
         <div className="input-field center">
           <button className='btn deep-purple darken-4' id="send">Send</button>
         </div>
+        <br/>
       </div>
     </div>
   );
