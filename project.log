@@ -1,0 +1,49 @@
+00:35:55.412 INFO  User created using Google 
+00:36:55.678 INFO  made socket connection 
+00:36:56.883 INFO  made socket connection 
+00:37:02.279 INFO  Emitting  to all Sonam S : Hi! 
+00:37:39.418 INFO  Emitting  to all Sonam S : Go! 
+00:41:31.759 INFO  made socket connection 
+00:45:24.848 INFO  made socket connection 
+00:48:05.961 ERROR The email address is already in use by another account. 
+00:49:02.168 ERROR There is no user record corresponding to this identifier. The user may have been deleted. 
+00:49:32.490 ERROR Not verified 
+00:51:19.273 INFO  made socket connection 
+00:51:51.486 ERROR Reset link sent successfully 
+00:52:23.310 ERROR The password is invalid or the user does not have a password. 
+00:52:29.948 INFO  made socket connection 
+00:53:25.826 INFO  User created using Google 
+00:53:28.059 INFO  made socket connection 
+00:54:19.036 INFO  made socket connection 
+00:54:22.623 INFO  made socket connection 
+00:54:39.696 INFO  made socket connection 
+00:56:01.407 INFO  User created using Google 
+00:56:02.807 INFO  made socket connection 
+00:56:35.357 INFO  User created using Google 
+00:56:38.002 INFO  made socket connection 
+00:57:06.568 INFO  made socket connection 
+00:57:14.405 INFO  Emitting  to all Anything : Heya! 
+00:58:22.271 INFO  Emitting  to all Anything : Heya! 
+00:58:35.818 INFO  Emitting  to all Miraculous Sonam : Hello!! 
+00:58:45.338 INFO  Emitting  to all Sonam S : What's up?? 
+00:59:00.598 INFO  Emitting  to all Nancy Drew : Hi! So is Socket.io working? 
+00:59:18.678 INFO  Emitting  to all Miraculous Sonam : Yup!! Extremely well! 
+00:59:36.959 INFO  Emitting  to all Anything : Time to submit? 
+00:59:52.465 INFO  Emitting  to all Nancy Drew : Sure! 
+01:00:12.694 INFO  Emitting  to all Nancy Drew : Oh by the way, how are there 4 "me"s? 
+01:00:23.837 INFO  Emitting  to all Anything : Haha! 
+01:00:38.001 INFO  Emitting  to all Anything : I am using email with password from phone 
+01:01:00.003 INFO  Emitting  to all Miraculous Sonam : And I am using Google Auth in laptop Chrome 
+01:01:18.393 INFO  Emitting  to all Sonam S : While I am using Google Auth in laptop firefox 
+01:01:58.500 INFO  Emitting  to all Nancy Drew : And I am using email with password in Firefox Incognito! That's amazing! 
+01:02:08.730 INFO  Emitting  to all Anything : Hehe 
+01:02:19.709 INFO  Emitting  to all Miraculous Sonam : So, shall we submit? 
+01:02:40.575 INFO  Emitting  to all Anything : Of course! 
+01:02:48.790 INFO  Emitting  to all Miraculous Sonam : See you then! 
+01:02:55.536 INFO  Emitting  to all Nancy Drew : Bye! 
+01:03:07.095 INFO  Emitting  to all Sonam S : Bye bye!!! 
+01:03:17.959 INFO  Emitting  to all Anything : Cyaaaa 
+01:03:30.751 INFO  Emitting  to all Miraculous Sonam : Bye "me"s!  :') 
+01:06:21.602 INFO  made socket connection 
+01:07:44.770 INFO  User created using Google 
+01:07:45.399 INFO  made socket connection 

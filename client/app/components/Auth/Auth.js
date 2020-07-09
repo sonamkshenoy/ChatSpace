@@ -48,6 +48,8 @@ class AuthComponent extends Component{
         if(cookies.get('googleSignInClicked')){
             cookies.remove('googleSignInClicked',{path:'/'});
         }
+
+        // console.log(this.props.location.pathname);
       }
     
     handleChange(e){
@@ -71,8 +73,8 @@ class AuthComponent extends Component{
         axios.post('/signup', user)
         .then(res => {
             if(res.status==200){
-                console.log(res);
-                console.log(res.data);
+                // console.log(res);
+                // console.log(res.data);
                 this.props.history.push('/notify');
             }
             else{
@@ -99,16 +101,16 @@ class AuthComponent extends Component{
         axios.post('/login', user)
         .then(res => {
             if(res.status==200){
-                console.log(res);
-                console.log(res.data);   
+                // console.log(res);
+                // console.log(res.data);   
                 const cookies = new Cookies();
                 cookies.set('username', res.data.username, {path:'/'});
-                console.log(cookies.get('username'));
-                console.log(this.props);             
+                // console.log(cookies.get('username'));
+                // console.log(this.props);             
                 this.props.history.push('/chat');
             }
             else{
-                console.log(res.data);
+                // console.log(res.data);
                 this.setState({
                     "loginError":res.data.errorMsg
                 });
@@ -133,7 +135,7 @@ class AuthComponent extends Component{
     handleResetPassword(e){
         e.preventDefault();
         // this.state.loginError = "xxx" // outdated way
-        console.log("Inside reset");
+        // console.log("Inside reset");
         var user = {
             email: this.state.loginEmail,
         };
@@ -204,7 +206,7 @@ class AuthComponent extends Component{
         
         return(
             <div>
-                <HeaderComponent/>
+                <HeaderComponent history={this.props.history} page="home"/>
                 <div className = "center">
                     <h5 className="indigo-text">Please, login into your account</h5>
                     <div className="col s12">
@@ -229,7 +231,7 @@ class AuthComponent extends Component{
                                     <div className="center">
                                     {loginTabButton}
                                     <p className='red-text'>{this.state.loginError}</p><br/>
-                                    <Link className='pink-text tab' to="" id='createAccount'>Create account</Link><br/><br/><br/>
+                                    <Link className='pink-text tab' to="" id='createAccount'>Create account</Link><br/><br/>or<br/><br/>
                                     <div className="g-signin2 container" onClick={this.setGoogleClickedCookie} data-onsuccess="onSignIn" data-theme="dark"></div>                                    
                                     <br/><br/><br/>
                                     </div>

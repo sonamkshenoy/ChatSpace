@@ -36,6 +36,13 @@
           e.preventDefault();
           $('ul.tabs').tabs('select', 'test-swipe-4');
         });
+        $('#logoutButton').click(()=>{
+          // console.log("Clicked", window.location.pathname);
+          if(window.location.pathname=='/'){
+            // console.log("Logout in home page");
+            $(this).remove();
+          }
+        });
         // $('.abcRioButtonBlue').addClass("container");
         // $('.abcRioButtonContentWrapper').append("<span id='myGoogleSigninButton'>Sign in</span>");
       })
@@ -58,14 +65,14 @@
         var usernameExists = getCookie('googleSignInClicked');
         if(usernameExists){
           var id_token = googleUser.getAuthResponse().id_token;
-          console.log(id_token);
+          // console.log(id_token);
           $.post('/authWithGoogle',
           {
             id_token : id_token,
             // username: profile.getName(), (not required, Google takes care of setting display name itself)
           },
           function(data, status){
-            console.log(data,status);
+            // console.log(data,status);
             if(status=="success"){
               var now = new Date();
               var time = now.getTime();

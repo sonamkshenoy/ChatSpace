@@ -10,7 +10,7 @@ class HeaderComponent extends Component{
         this.state = {
             username : username,
         }
-        console.log("Signout decider",this.state.username);
+        // console.log("Signout decider",this.state.username);
         this.handleClick = this.handleClick.bind(this);
     }
 
@@ -18,7 +18,7 @@ class HeaderComponent extends Component{
         e.preventDefault();
         var cookies = new Cookies();
         cookies.remove('username',{'path':'/'});
-        console.log(this.props);
+        // console.log(this.props);
         if(cookies.get('googleSignInClicked')){
             cookies.remove('googleSignInClicked',{path:'/'});
         }
@@ -29,11 +29,22 @@ class HeaderComponent extends Component{
         let Logoutbutton;
         let Homebutton;
         if(this.state.username){
-            Logoutbutton = <li><Link onClick = {this.handleClick} to="/">Logout</Link></li>;
+            Logoutbutton = <li><Link id='logoutButton' onClick = {this.handleClick} to="/">Logout</Link></li>;
         }
         // if(!this.state.username){
         //     Homebutton = <li><Link to="/">Home</Link></li>;
         // }
+
+        let pageHeading;
+        if(this.props.page=='home'){
+            pageHeading = <h3 className='jumbotronTitle2'>Home page</h3>;
+        }
+        else if(this.props.page=='chat'){
+            pageHeading = <h3 className='jumbotronTitle2'>Chat page</h3>;
+        }
+        else{
+            pageHeading = <h3 className='jumbotronTitle2'>Notify page</h3>;
+        }
         
         return(
             <div>
@@ -61,6 +72,7 @@ class HeaderComponent extends Component{
                         </div>
                     </nav>
                     <h1 className='jumbotronTitle'>The World's Best Chatting Space!</h1>
+                    {pageHeading}
                 </header>
             </div>
         );

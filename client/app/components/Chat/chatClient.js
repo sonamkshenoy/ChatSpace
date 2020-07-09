@@ -2,7 +2,7 @@
 var socket = io.connect('192.168.2.6:8000');
 
 
-console.log("Inside chatClient.js");
+// console.log("Inside chatClient.js");
 
 /*
 Works, however reloads (no! React!)
@@ -41,8 +41,8 @@ btn.addEventListener('click', function(){
 });
 
 socket.on('chat', function(data){
-  console.log('received');
-  console.log(data);
+  // console.log('received');
+  // console.log(data);
 
   feedback.innerHTML="";
 

@@ -7,11 +7,12 @@ var firebase = require("firebase/app");
 require("firebase/auth");
 require("firebase/firestore");
 
-// TODO: Replace the following with your app's Firebase project configuration
-
 const firebaseConfig = require('../config/config.js');
 firebase.initializeApp(firebaseConfig);
   
+// Log
+const log = require('simple-node-logger').createSimpleFileLogger('project.log');
+log.setLevel('info');
 
 module.exports = function(app){
 
@@ -20,7 +21,7 @@ module.exports = function(app){
 
 
     app.post('/signup',function(req, res){
-        console.log(req.body.username, req.body.email, req.body.password);
+        // console.log(req.body.username, req.body.email, req.body.password);
 
         async function allAuthProcedure(){
             // Create account
@@ -30,7 +31,8 @@ module.exports = function(app){
             catch(error){
                 var errorCode = error.code;
                 var errorMessage = error.message;
-                console.log(errorMessage);
+                // console.log(errorMessage);
+                log.error(errorMessage);
                 return res.status(202).send({"errorMsg":errorMessage});
             }
 
@@ -43,7 +45,7 @@ module.exports = function(app){
                 })
             }
             catch(e){
-                console.log(e);
+                log.error(e);
                 return res.status(202).send({"errorMsg":e}); // returning so doesn't go till res.status(200)
             }
 
@@ -53,7 +55,7 @@ module.exports = function(app){
                 await user.sendEmailVerification();
             }
             catch(e){
-                console.log(e);
+                log.error(e);
                 return res.status(202).send({"errorMsg":e});
             }
 
@@ -65,7 +67,7 @@ module.exports = function(app){
     });
 
     app.post('/login',function(req, res){
-        console.log(req.body.email, req.body.password);
+        // console.log(req.body.email, req.body.password);
         firebase.auth().signInWithEmailAndPassword(req.body.email, req.body.password)
         .then(function(){
             var user = firebase.auth().currentUser;
@@ -76,7 +78,8 @@ module.exports = function(app){
                 return res.status(200).send({"login":"successful", "username": user.displayName});
             }
             else{
-                console.log("Not verified");
+                // console.log("Not verified");
+                log.error("Not verified");
                 return res.status(202).send({"errorMsg":"You have not confirmed your email address. Please confirm you email address by clicking on the verification link sent to your email."});
             }
         })
@@ -84,7 +87,7 @@ module.exports = function(app){
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
-            console.log(errorMessage);
+            log.error(errorMessage);
             return res.status(202).send({"errorMsg":errorMessage});
           });
     });
@@ -96,7 +99,7 @@ module.exports = function(app){
         var emailAddress = req.body.email;
 
         auth.sendPasswordResetEmail(emailAddress).then(function() {
-            console.log("Reset link sent successfully");
+            log.error("Reset link sent successfully");
             return res.status(200).send({"resetSend":"successful"});
         }).catch(function(error) {
             return res.status(202).send({errorMsg:error});
@@ -112,7 +115,7 @@ module.exports = function(app){
             // Sign in with credential from the Google user.
             try{
                 var resp = await firebase.auth().signInWithCredential(credential);            
-                console.log("User created using Google");
+                log.info("User created using Google");
             }
             catch(error){
                 // Handle Errors here.
@@ -126,7 +129,7 @@ module.exports = function(app){
                 return res.status(202).send({errorMsg:errorMessage});
             }
             var user = firebase.auth().currentUser;
-            console.log(user.displayName);
+            // log.info(user.displayName);
 
             return res.status(200).send({login:"successful",username:user.displayName});
 

@@ -5,6 +5,13 @@ $(document).ready(function(){
         $('ul.tabs').tabs('select', 'test-swipe-4');
     });
     $('.sidenav').sidenav();
+    $('#logoutButton').click(()=>{
+        // console.log("Clicked", window.location.pathname);
+        if(window.location.pathname=='/'){
+          // console.log("Logout in home page");
+          $('#logoutButton').remove();
+        }
+      });
 });
 
 // function onSignIn(googleUser) {

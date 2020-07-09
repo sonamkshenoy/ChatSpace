@@ -59,9 +59,23 @@ height:350px;
   margin-top: 200px;
 }
 
+.jumbotronTitle2{
+  text-align: center;
+  color: white;
+  margin-top: 50px;
+}
+
 .abcRioButton.abcRioButtonBlue{
   width:200px !important;
-  margin-left:210px !important;
+  margin-left:240px !important;
+}
+
+@media only screen and (max-width: 1370px) {
+  /* For mobile phones: */
+  .abcRioButton.abcRioButtonBlue{
+    width:200px !important;
+    margin-left:180px !important;
+  }
 }
 
 @media only screen and (max-width: 1254px) {

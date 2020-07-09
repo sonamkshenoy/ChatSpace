@@ -10,7 +10,7 @@ import LayoutComponent from '../Layout/layout';
 
 const PrivateRoute = function({ component: Component, ...rest }){
   var cookies = new Cookies();
-  console.log("Check private route: ", cookies.get("username"), typeof cookies.get('username'));
+  // console.log("Check private route: ", cookies.get("username"), typeof cookies.get('username'));
   return (<Route {...rest} render={(props) => (
     typeof cookies.get('username') !== 'undefined'
       ? <Component {...props} />

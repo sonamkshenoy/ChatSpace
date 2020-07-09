@@ -23,12 +23,14 @@ class ChatComponent extends Component{
     script2.src = "/app/components/Auth/tab.js";
     script2.async = true;
     document.body.appendChild(script2);
+
+    // console.log(this.props.location.pathname); // gives the current path
   }
 
   render(){
   return (
     <div>
-      <HeaderComponent history={this.props.history}/>
+      <HeaderComponent history={this.props.history} page="chat"/>
       <div className="container section">
         <h3>Feeling bored?</h3>
         <p>Chat with your friends online! Make sure they are on this page.</p>
