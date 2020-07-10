@@ -14,7 +14,6 @@ class ChatComponent extends Component{
       username: cookies.get("username"),
       allChats: [],
       displayNum: 5,
-      lastNum: 0,
       moreChats: true,
     }
 
@@ -34,13 +33,20 @@ class ChatComponent extends Component{
     document.body.appendChild(script2);
 
     // console.log(this.props.location.pathname); // gives the current path
+
+    var cookies = new Cookies();
+    cookies.set('lastNum',0,{path:'/'});
     
-    axios.post('/retrieveChats', {displayNum:this.state.displayNum, lastNum:this.state.lastNum})
+    axios.post('/retrieveChats', {displayNum:this.state.displayNum, lastNum:0})
     .then((res)=>{
-      // console.log(res);      
+      // console.log(res);  
+      
+      var cookies = new Cookies();
+      var lastNum = parseInt(cookies.get('lastNum'));
+      cookies.set('lastNum',lastNum+this.state.displayNum,{path:'/'});
+
       this.setState({
         allChats : res.data.allChats,
-        lastNum : this.state.lastNum+this.state.displayNum,
         moreChats: res.data.moreChats,
       });
     })
@@ -49,17 +55,23 @@ class ChatComponent extends Component{
 
   displayMore(e){
     e.preventDefault();
-    axios.post('/retrieveChats', {displayNum:this.state.displayNum, lastNum:this.state.lastNum})
+    var cookies = new Cookies();
+    var lastNum = parseInt(cookies.get('lastNum'));
+    axios.post('/retrieveChats', {displayNum:this.state.displayNum, lastNum:lastNum})
     .then((res)=>{
       // console.log(res);
       var newChats = res.data.allChats; 
       var oldChatCollections = this.state.allChats;
       for(var j = newChats.length-1; j>=0; --j){
         oldChatCollections.unshift(newChats[j]);
-      }     
+      }  
+      
+      var cookies = new Cookies();
+      var lastNum = parseInt(cookies.get('lastNum'));
+      cookies.set('lastNum',lastNum+this.state.displayNum,{path:'/'});
+
       this.setState({
         allChats : oldChatCollections,
-        lastNum : this.state.lastNum+this.state.displayNum,
         moreChats: res.data.moreChats,
       });
     })
@@ -95,8 +107,9 @@ class ChatComponent extends Component{
 
         <div className="container section" style={{paddingTop:"0px"}}>
           {moreButton}
+          {allChatsList}
           <div id='output' className='section'>
-            {allChatsList}
+            
           </div>
           <div id="feedback"></div>
           <div className='input-field'>

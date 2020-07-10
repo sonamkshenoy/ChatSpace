@@ -1,5 +1,6 @@
 // var socket = io.connect('http://localhost:8000');
 var socket = io.connect('192.168.2.3:8000');
+// var socket = io.connect('https://the-best-chat-space.herokuapp.com');
 
 
 // console.log("Inside chatClient.js");
@@ -21,6 +22,11 @@ $('.LogoutButton').on('click', function(){
 });
 */
 
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
 
 var message = document.getElementById('message'),
     username = document.getElementById('username'),
@@ -32,6 +38,15 @@ btn.addEventListener('click', function(){
   var newElement = document.createElement('div');
   newElement.innerHTML='<p><strong style="font-weight:900;">'+ 'You: ' +message.value + ' </strong>' + '</p>';
   output.appendChild(newElement);
+
+  var lastNum = parseInt(getCookie('lastNum'));
+  console.log("Lastnum ",lastNum);
+  lastNum = lastNum + 1;
+  var now = new Date();
+  var time = now.getTime();
+  var expireTime = time + 1000*36000;
+  now.setTime(expireTime);
+  document.cookie = 'lastNum='+lastNum+'; Path=/; Expires=' + now;
 
   socket.emit('chat',{
     message : message.value,
