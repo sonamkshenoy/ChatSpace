@@ -1,4 +1,4 @@
-# Chat-Space  
+# ChatSpace  
 A chat application built using socket.io and FERN stack (Firebase, Express, React, Node) with authentication. Users can sign in using either their Google account i.e. OAuth2.0 or an email id and password.  
 
 ----
@@ -81,12 +81,17 @@ Of course, replace `...` with the API credentials of your Firebase app.
 
 ## Setting up the project 
 1. Make sure you have placed the configuration files in the appropriate folder as described above.   
-2. In [chatClient.js](https://github.com/sonamkshenoy/Chat-Space/blob/master/client/app/components/Chat/chatClient.js)  (ChatSpace > client > app > components > Chat > chatClient.js), change the IP address in [Line 2](https://github.com/sonamkshenoy/Chat-Space/blob/f21c68f1bbf25a2eaa61332fa2e33ad5740d0c90/client/app/components/Chat/chatClient.js#L2) to the IP address of the server you are running this project on. If you retain it as `localhost` as in Line 1, you won't be able to connect to the socket on other devices. Hence, chatting won't work on other devices though the website still runs if you use `localhost` instead of the IP.  
+2. In [chatClient.js](https://github.com/sonamkshenoy/ChatSpace/blob/master/client/app/components/Chat/chatClient.js)  (ChatSpace > client > app > components > Chat > chatClient.js), change the IP address in [Line 2](https://github.com/sonamkshenoy/ChatSpace/blob/f21c68f1bbf25a2eaa61332fa2e33ad5740d0c90/client/app/components/Chat/chatClient.js#L2) to the IP address of the server you are running this project on.   
+If you retain it as `localhost` as in Line 1, you won't be able to connect to the socket on other devices. Hence, chatting won't work on other devices though the website still runs if you use `localhost` instead of the IP. In any case, everything will work on the browser in the system you are running the application on.    
 3. Run these commands:   
 ```
 npm install  
 npm start
-```
+```  
+4. Once the server begins running successfully, head over to the browser: `localhost:8000` or `<ip_address>:8000`.   
+
+
+Note: OAuth will only work on the system you are running the website on (server) but not on other devices as long as you are running the website on your local system. This problem won't exist once the website is hosted. (This problem exists since in Firebase you can't add an IP as a JavaScript Origin but only a proper website or `localhost`). 
 
 
 
