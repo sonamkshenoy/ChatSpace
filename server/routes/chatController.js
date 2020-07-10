@@ -115,4 +115,48 @@ module.exports = function(app, server){
         socket.broadcast.emit('typing', data);
       });
     });   
+
+    // post request since don't want user to go to this path.
+    app.post('/retrieveChats', function(req, res){
+      var displayNum = req.body.displayNum;
+      var lastNum = req.body.lastNum;
+      var startind = 0;
+      var countind = 0;
+      var sent = false;
+      var moreChats = true;
+
+      async function retrieve(){
+        try{
+          const ConversationsCollection = db.collection('Conversations')
+          const allChats = await ConversationsCollection.orderBy('Time','desc').get();
+          var allChatsRetrieved = [];
+          allChats.forEach(doc => {
+            // console.log(doc.id, '=>', doc.data());
+            // console.log(doc.data().Conv);
+            var chatsInDoc = doc.data().Chats;
+            chatsInDoc.reverse();
+            chatsInDoc.forEach((obj)=>{
+              ++startind;
+              if(startind>lastNum && countind!=displayNum){
+                var chatDetail = {person:obj.Name, conv: obj.Conv};
+                allChatsRetrieved.unshift(chatDetail); // unshift, not push
+                ++countind;
+              }
+            });           
+          });
+          // console.log(allChatsRetrieved);
+          if(allChatsRetrieved.length==0)
+            moreChats = false;
+
+          // line required here too, since sometimes not all displayNum of chats available in which condition the counind = displayNum condition won't be satisfied
+          return res.status(200).send({retrieve:"successful",allChats:allChatsRetrieved, moreChats: moreChats});
+        }
+        catch(e){
+          console.log(e);
+          return res.status(202).send({error:e});
+        }
+      }
+      
+      retrieve();
+    })
 }

@@ -1,5 +1,5 @@
 // var socket = io.connect('http://localhost:8000');
-var socket = io.connect('192.168.2.6:8000');
+var socket = io.connect('192.168.2.3:8000');
 
 
 // console.log("Inside chatClient.js");
