@@ -59,6 +59,15 @@ socket.on('chat', function(data){
   // console.log('received');
   // console.log(data);
 
+  var lastNum = parseInt(getCookie('lastNum'));
+  console.log("Lastnum ",lastNum);
+  lastNum = lastNum + 1;
+  var now = new Date();
+  var time = now.getTime();
+  var expireTime = time + 1000*36000;
+  now.setTime(expireTime);
+  document.cookie = 'lastNum='+lastNum+'; Path=/; Expires=' + now;
+
   feedback.innerHTML="";
 
   var newElement = document.createElement('div');
