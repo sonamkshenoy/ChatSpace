@@ -91,7 +91,8 @@ npm start
 4. Once the server begins running successfully, head over to the browser: `localhost:8000` or `<ip_address>:8000`.   
 
 
-Note: OAuth will only work on the system you are running the website on (server) but not on other devices as long as you are running the website on your local system. This problem won't exist once the website is hosted. (This problem exists since in Firebase you can't add an IP as a JavaScript Origin but only a proper website or `localhost`). 
+Note: OAuth will only work on the system you are running the website on (server) but not on other devices as long as you are running the website on your local system. This problem won't exist once the website is hosted. (This problem exists since in Firebase you can't add an IP as a JavaScript Origin but only a proper website or `localhost`).   
+To be able to use Google to sign in using the IP address, add your own IP (say 192.168.2.2) in Firebase Console -> Authentication -> Sign in Tab -> Authorized Domains.
 
 
 
